@@ -3,6 +3,9 @@ package _03_To_Do_List;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,19 +76,18 @@ public class ToDoList implements ActionListener {
 			String str = JOptionPane.showInputDialog(null, "Input a message that you would like to be save to a file");
 			tasks.add(str);
 		} else if (e.getSource() == view) {
-			JOptionPane.showMessageDialog(null, tasks);
-		} else if(e.getSource() == remove) {
-			String rev = JOptionPane.showInputDialog(null, "Whitch task will you like to remove?\n"+tasks);
+			JOptionPane.showMessageDialog(null, "Cuurent tasks: \n" + tasks);
+		} else if (e.getSource() == remove) {
+			String rev = JOptionPane.showInputDialog(null, "Whitch task will you like to remove?\n" + tasks);
 			for (int i = 0; i < tasks.size(); i++) {
-				if(rev.toLowerCase().equals(tasks.get(i).toLowerCase())) {
+				if (rev.toLowerCase().equals(tasks.get(i).toLowerCase())) {
 					tasks.remove(i);
 				}
 			}
 		} else if (e.getSource() == save) {
 			for (int i = 0; i < tasks.size(); i++) {
 				try {
-					FileWriter fw = new FileWriter(
-							"/Users/league/Desktop/level5-00-file-io-lucas-khattar/src/_03_To_Do_List/tasks.txt", true);
+					FileWriter fw = new FileWriter("src/_03_To_Do_List/tasks.txt", true);
 					fw.write(tasks.get(i) + "\n");
 					fw.close();
 				} catch (IOException j) {
@@ -93,9 +95,21 @@ public class ToDoList implements ActionListener {
 				}
 			}
 		} else if (e.getSource() == load) {
-			//read each line
-			//add each line to array
-			//show array in JOptionPane
+			try {
+				BufferedReader br = new BufferedReader(new FileReader("src/_03_To_Do_List/tasks.txt"));
+				String line = br.readLine();
+				while (line != null) {
+					tasks.add(line);
+					line = br.readLine();
+				}
+
+				br.close();
+			} catch (FileNotFoundException j1) {
+				j1.printStackTrace();
+			} catch (IOException j) {
+				j.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(null, "Current tasks: \n" + tasks);
 		}
 	}
 }

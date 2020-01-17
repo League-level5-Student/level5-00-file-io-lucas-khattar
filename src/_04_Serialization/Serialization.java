@@ -36,11 +36,13 @@ public class Serialization {
 	}
 
 	/*
-	 * One simple way to save a serializable object to a file is using a FileOutputStream
-	 * and ObjectOutputStream.
+	 * One simple way to save a serializable object to a file is using a
+	 * FileOutputStream and ObjectOutputStream.
 	 */
+
 	private static void save(SaveData data) {
-		try (FileOutputStream fos = new FileOutputStream(new File(DATA_FILE)); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+		try (FileOutputStream fos = new FileOutputStream(new File(DATA_FILE));
+				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			oos.writeObject(data);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,7 +50,8 @@ public class Serialization {
 	}
 
 	private static SaveData load() {
-		try (FileInputStream fis = new FileInputStream(new File(DATA_FILE)); ObjectInputStream ois = new ObjectInputStream(fis)) {
+		try (FileInputStream fis = new FileInputStream(new File(DATA_FILE));
+				ObjectInputStream ois = new ObjectInputStream(fis)) {
 			return (SaveData) ois.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();
