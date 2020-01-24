@@ -45,9 +45,11 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 	JButton save;
 	JButton load;
 	GridPanel gp;
-
-	public ColorSelectionPanel(GridPanel grid) {
+	PixelArtMaker pam;
+	
+	public ColorSelectionPanel(GridPanel grid, PixelArtMaker pixelMaker) {
 		gp = grid;
+		pam = pixelMaker;
 		rSlider = new JSlider(JSlider.VERTICAL);
 		gSlider = new JSlider(JSlider.VERTICAL);
 		bSlider = new JSlider(JSlider.VERTICAL);
@@ -171,7 +173,9 @@ public class ColorSelectionPanel extends JPanel implements MouseListener, Change
 			save(gp);
 			System.out.println("Saved!");
 		} else if (e.getSource() == load) {
-			load();
+			gp = load();
+			pam.setGirdPanel(gp);
+			System.out.println("Done!");
 		}
 	}
 }
